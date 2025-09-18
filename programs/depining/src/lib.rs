@@ -97,7 +97,11 @@ impl<'info> FeedSensorData<'info> {
         self.sensor_data.longitude = longitude;
         self.sensor_data.check_and_update()?;
 
-        self.sensor_data.reload()?;
+        msg!("humidity: {:?}", self.sensor_data.humidity);
+        msg!("temperature: {:?}", self.sensor_data.temperature);
+        msg!("heat_index: {:?}", self.sensor_data.heat_index);
+        msg!("latitude: {:?}", self.sensor_data.latitude);
+        msg!("longitude: {:?}", self.sensor_data.longitude);
         msg!("latest_update: {}", Clock::get()?.unix_timestamp);
         msg!("slot: {}", Clock::get()?.slot);
         Ok(())

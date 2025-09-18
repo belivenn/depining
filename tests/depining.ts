@@ -17,18 +17,11 @@ describe("depining", () => {
     program.programId,
   )[0];
 
-  // Mock data
-  const humidity = 100;
-  const temperature = 20;
-  const heatIndex = 30;
-  const latitude = 100;
-  const longitude = 200;
-
   it("Airdrop\n", async () => {
     // Request airdrop for the Sensor
     const signature = await anchor.getProvider().connection.requestAirdrop(
       sensorId.publicKey,
-      1 * anchor.web3.LAMPORTS_PER_SOL
+      .05 * anchor.web3.LAMPORTS_PER_SOL
     ).then(confirmTx);
 
     console.log("Transaction signature", signature);
@@ -51,11 +44,11 @@ describe("depining", () => {
   it("Feed sensor data!", async () => {
     // Add your test here.
     const tx = await program.methods.feedData(
-      humidity,
-      temperature,
-      heatIndex,
-      latitude,
-      longitude
+      5,
+      10,
+      100,
+      1550,
+      1111
     )
       .accountsPartial({
         sensorId: sensorId.publicKey,
