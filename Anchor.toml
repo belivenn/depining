@@ -17,3 +17,6 @@ wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test-anchor = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/depining.ts"
+test-litesvm = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/depining_litesvm.ts"
+test-anchorlitesvm = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/depining_anchorlitesvm.ts"

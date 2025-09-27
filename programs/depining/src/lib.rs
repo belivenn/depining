@@ -95,6 +95,8 @@ impl<'info> FeedSensorData<'info> {
         self.sensor_data.heat_index = heat_index;
         self.sensor_data.latitude = latitude;
         self.sensor_data.longitude = longitude;
+        msg!("BEFORE slot: {}", self.sensor_data.slot);
+        msg!("actual slot: {}", Clock::get()?.slot);
         self.sensor_data.check_and_update()?;
 
         msg!("humidity: {:?}", self.sensor_data.humidity);
@@ -103,7 +105,8 @@ impl<'info> FeedSensorData<'info> {
         msg!("latitude: {:?}", self.sensor_data.latitude);
         msg!("longitude: {:?}", self.sensor_data.longitude);
         msg!("latest_update: {}", Clock::get()?.unix_timestamp);
-        msg!("slot: {}", Clock::get()?.slot);
+        msg!("After slot: {}", self.sensor_data.slot);
+        msg!("actual slot: {}", Clock::get()?.slot);
         Ok(())
     }
 }
@@ -125,7 +128,7 @@ impl SensorData {
     pub fn check_and_update(&mut self) -> Result<()> {
         require!(
             self.slot < Clock::get()?.slot,
-            SensorError::InvalidTimestamp
+            SensorError::InvalidSlot
         );
         self.latest_update = Clock::get()?.unix_timestamp;
         self.slot = Clock::get()?.slot;
